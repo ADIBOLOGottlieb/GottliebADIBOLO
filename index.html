@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gottlieb Adibolo — Développeur Fullstack</title>
+<meta name="description" content="Portfolio de Gottlieb Adibolo, développeur fullstack junior à Lomé : Flutter, Laravel, PHP / MySQL, Angular.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: single column, a code-editor feel — each project reads like a module with its stack as imports. */
+  :root {
+    --bg: #f6f8fa; --surface: #ffffff; --line: #d9e1e8;
+    --fg: #0f2233; --muted: #566b7d; --accent: #0b7fae; --accent-soft: #e2f2f9; --ok: #0f8a6a;
+    --display: "Sora", "Segoe UI", system-ui, sans-serif;
+    --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1622; --surface: #12212f; --line: #213749;
+      --fg: #e6edf3; --muted: #93a6b8; --accent: #4cc3f5; --accent-soft: #11334a; --ok: #2fd3a6;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1622; --surface: #12212f; --line: #213749;
+    --fg: #e6edf3; --muted: #93a6b8; --accent: #4cc3f5; --accent-soft: #11334a; --ok: #2fd3a6;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 58px; }
+  .logo { font-family: var(--mono); font-weight: 500; color: var(--fg); font-size: 15px; }
+  .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-size: 15px; }
+  nav ul a { color: var(--muted); }
+
+  header { padding-block: 72px 56px; display: grid; gap: 20px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; color: var(--ok); }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.08; letter-spacing: -0.02em; }
+  h1 em { font-style: normal; color: var(--accent); display: block; font-size: 0.55em; letter-spacing: -0.01em; margin-top: 10px; }
+  header p { color: var(--muted); max-width: 62ch; font-size: 1.08rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font: 600 15px var(--body); padding: 10px 18px; border-radius: 6px; border: 1px solid var(--accent); color: var(--accent); background: transparent; cursor: pointer; }
+  .btn:hover { text-decoration: none; background: var(--accent-soft); }
+  .btn.primary { background: var(--accent); color: var(--bg); }
+  .btn.primary:hover { filter: brightness(1.08); }
+
+  section { border-top: 1px solid var(--line); padding-block: 56px; }
+  .head { display: grid; gap: 6px; margin-bottom: 28px; }
+  .head h2 { font-size: 1.6rem; }
+  .head p { color: var(--muted); }
+  .eyebrow { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+
+  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .card .kind { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .card h3 { font-size: 1.15rem; }
+  .card p { color: var(--muted); font-size: 0.98rem; }
+  .card img { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips span { font-family: var(--mono); font-size: 12.5px; padding: 2px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--fg); }
+  .card .links { display: flex; gap: 16px; font-weight: 600; font-size: 15px; }
+
+  .skills { display: grid; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  .skill { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding: 16px 20px; align-items: center; }
+  .skill + .skill { border-top: 1px solid var(--line); }
+  .skill h3 { font-size: 1rem; }
+
+  .timeline { display: grid; gap: 24px; border-left: 2px solid var(--line); padding-left: 22px; }
+  .tl { position: relative; display: grid; gap: 4px; }
+  .tl::before { content: ""; position: absolute; left: -29px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+  .tl .when { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .tl h3 { font-size: 1.05rem; }
+  .tl ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); }
+
+  .contact-list { display: grid; gap: 12px; }
+  .contact-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  .contact-row .label { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .contact-row .value { font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+  .copy { font: 500 13px var(--mono); padding: 6px 10px; border-radius: 5px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; }
+  .copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer { color: var(--muted); font-size: 14px; padding-block: 28px 40px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 720px) {
+    .projects { grid-template-columns: minmax(0, 1fr); }
+    .skill { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    nav ul li:nth-child(n+3) { display: none; }
+    header { padding-block: 48px 40px; }
+    .contact-row { grid-template-columns: minmax(0, 1fr) auto; }
+    .contact-row .label { grid-column: 1 / -1; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .card { transition: border-color .2s, transform .2s; }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="logo">gottlieb<span>.dev</span></span>
+    <ul>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="wrap">
+  <span class="status">Disponible immédiatement · Lomé, Togo</span>
+  <h1>Gottlieb Adibolo<em>Développeur Fullstack Junior · Web &amp; Mobile</em></h1>
+  <p>Je développe des applications mobiles Flutter avec des back-ends Laravel, des sites PHP / MySQL et des interfaces Angular, de la maquette à la mise en ligne. Je viens de terminer un stage de développement Angular chez Moon Togo et je finis ma Licence professionnelle en développement d'applications.</p>
+  <div class="actions">
+    <a class="btn primary" href="#projets">Voir mes projets</a>
+    <a class="btn" href="CV_ADIBOLO_Fullstack.pdf" download>Télécharger mon CV</a>
+    <a class="btn" href="https://github.com/ADIBOLOGottlieb" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn" href="https://wa.me/22871572566" target="_blank" rel="noopener">WhatsApp ↗</a>
+  </div>
+</header>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">projets</span>
+      <h2>Ce que j'ai construit</h2>
+      <p>Applications réalisées pendant ma formation et en projet personnel.</p>
+    </div>
+    <div class="projects" id="project-list"></div>
+  </div>
+</section>
+
+<section id="competences">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">compétences</span>
+      <h2>Ma stack</h2>
+    </div>
+    <div class="skills" id="skill-list"></div>
+  </div>
+</section>
+
+<section id="parcours">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">parcours</span>
+      <h2>Expérience et formation</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl">
+        <span class="when">16 juillet — 15 octobre 2026</span>
+        <h3>Stagiaire Développeur Web Angular · Moon Togo</h3>
+        <ul>
+          <li>Développement et amélioration d'interfaces web avec Angular</li>
+          <li>Intégration de fonctionnalités à partir de besoins fonctionnels et de maquettes</li>
+          <li>Travail en équipe avec Git / GitLab, en méthode agile</li>
+        </ul>
+      </div>
+      <div class="tl">
+        <span class="when">2022 — 2026</span>
+        <h3>Licence professionnelle Développement d'applications · Institut FORMATEC</h3>
+        <ul><li>Soutenance prévue en décembre 2026</li></ul>
+      </div>
+      <div class="tl">
+        <span class="when">2022</span>
+        <h3>Baccalauréat série scientifique · Lycée Georges-Clemenceau</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">contact</span>
+      <h2>Travaillons ensemble</h2>
+      <p>Pour une mission ou un projet, écrivez-moi par e-mail ou WhatsApp.</p>
+    </div>
+    <div class="contact-list">
+      <div class="contact-row">
+        <span class="label">E-mail</span>
+        <span class="value" id="email">andreasadibolo@gmail.com</span>
+        <button class="copy" type="button" id="copy-email" data-target="email">Copier</button>
+      </div>
+      <div class="contact-row">
+        <span class="label">WhatsApp</span>
+        <span class="value" id="phone">+228 71 57 25 66</span>
+        <button class="copy" type="button" id="copy-phone" data-target="phone">Copier</button>
+      </div>
+      <div class="contact-row">
+        <span class="label">GitHub</span>
+        <a class="value" href="https://github.com/ADIBOLOGottlieb" target="_blank" rel="noopener">github.com/ADIBOLOGottlieb</a>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Gottlieb Adibolo · Lomé, Togo</div>
+</footer>
+
+<script>
+  /* ============================================================
+     MODIFIE ICI : contenu des projets et des compétences
+     - demo / code : lien de la démo et du dépôt GitHub ("" = masqué)
+     - image : capture d'écran ("" = pas d'image)
+     ============================================================ */
+  const projects = [
+    {
+      kind: "Mobile + API",
+      title: "Commande en ligne pour restaurant",
+      desc: "Application mobile où le client consulte le menu, remplit son panier et passe commande ; le gérant suit et valide les commandes depuis le back-end.",
+      stack: ["Flutter", "Laravel", "API REST"],
+      image: "", demo: "", code: ""
+    },
+    {
+      kind: "Mobile + API",
+      title: "Planificateur de dépenses",
+      desc: "Application mobile pour enregistrer ses dépenses, fixer un budget par catégorie et suivre où en est son mois.",
+      stack: ["Flutter", "Laravel", "API REST"],
+      image: "", demo: "", code: ""
+    },
+    {
+      kind: "Web",
+      title: "Location de voitures",
+      desc: "Site avec catalogue de véhicules, réservation en ligne et gestion des disponibilités côté administrateur.",
+      stack: ["HTML / CSS", "PHP", "MySQL"],
+      image: "", demo: "", code: ""
+    },
+    {
+      kind: "Web",
+      title: "Gestion de stock",
+      desc: "Application web de suivi des produits, des entrées et sorties de stock, avec alertes de rupture et tableau de bord.",
+      stack: ["HTML / CSS", "PHP", "MySQL"],
+      image: "", demo: "", code: ""
+    }
+  ];
+
+  const skills = [
+    { title: "Mobile", items: ["Flutter", "Dart"] },
+    { title: "Back-end & données", items: ["Laravel", "PHP", "API REST", "MySQL"] },
+    { title: "Front-end", items: ["Angular", "TypeScript", "JavaScript", "HTML / CSS", "Responsive design"] },
+    { title: "Outils & méthodes", items: ["Git / GitLab", "Figma", "VS Code", "Agile / Scrum", "Outils IA pour le dev"] }
+  ];
+
+  /* ---------- rendu ---------- */
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  document.getElementById("project-list").innerHTML = projects.map(p => `
+    <article class="card">
+      ${p.image ? `<img src="${esc(p.image)}" alt="Capture de ${esc(p.title)}">` : ""}
+      <span class="kind">${esc(p.kind)}</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="chips">${p.stack.map(s => `<span>${esc(s)}</span>`).join("")}</div>
+      ${(p.demo || p.code) ? `<div class="links">
+        ${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener">Démo ↗</a>` : ""}
+        ${p.code ? `<a href="${esc(p.code)}" target="_blank" rel="noopener">Code ↗</a>` : ""}
+      </div>` : ""}
+    </article>`).join("");
+
+  document.getElementById("skill-list").innerHTML = skills.map(s => `
+    <div class="skill">
+      <h3>${esc(s.title)}</h3>
+      <div class="chips">${s.items.map(i => `<span>${esc(i)}</span>`).join("")}</div>
+    </div>`).join("");
+
+  document.querySelectorAll(".copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const el = document.getElementById(btn.dataset.target);
+      const text = el.textContent.trim();
+      const done = () => { btn.textContent = "Copié"; setTimeout(() => { btn.textContent = "Copier"; }, 1600); };
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents(el);
+        const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        btn.textContent = "Sélectionné";
+        setTimeout(() => { btn.textContent = "Copier"; }, 1600);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } catch (e) { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>
